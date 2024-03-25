@@ -1,0 +1,20 @@
+name: ystuler
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres:16.2
+    environment:
+      POSTGRES_DB: ${DB_NAME:-ystuler}
+      POSTGRES_USER: ${DB_USER:-ystuler}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-ystuler}
+    volumes:
+      - ystuler-db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+    env_file:
+      - ../configs/.env
+
+volumes:
+  ystuler-db-data:
